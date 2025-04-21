@@ -1,0 +1,1049 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "host": "dev-assets-service-541454969801.me-central1.run.app",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/v1/persons/{personId}/passports": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": 0,
+            "format": "int32",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 10,
+            "format": "int32",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePagedResponseDtoPassportResponseDto"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Passport Management"
+        ],
+        "description": "Get paginated list of passports for a traveler",
+        "operationId": "listPassports",
+        "summary": "List Passports",
+        "x-google-backend": {
+          "address": "https://dev-assets-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/passports"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PassportBulkRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageListPassportResponseDto"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Passport Management"
+        ],
+        "description": "Create one or multiple passports for a traveler. Supports both single and bulk operations.",
+        "operationId": "createPassports",
+        "summary": "Create Passport(s)",
+        "x-google-backend": {
+          "address": "https://dev-assets-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/passports"
+        }
+      }
+    },
+    "/api/v1/persons/{personId}/passports/{id}": {
+      "delete": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageVoid"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Passport Management"
+        ],
+        "description": "Delete a passport if it has no associated visas",
+        "operationId": "deletePassport",
+        "summary": "Delete Passport",
+        "x-google-backend": {
+          "address": "https://dev-assets-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/passports/{id}"
+        }
+      },
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePassportResponseDto"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Passport Management"
+        ],
+        "description": "Get passport details by ID",
+        "operationId": "getPassport",
+        "summary": "Get Passport",
+        "x-google-backend": {
+          "address": "https://dev-assets-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/passports/{id}"
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PassportRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePassportResponseDto"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Passport Management"
+        ],
+        "description": "Update an existing passport",
+        "operationId": "updatePassport",
+        "summary": "Update Passport",
+        "x-google-backend": {
+          "address": "https://dev-assets-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/passports/{id}"
+        }
+      }
+    },
+    "/api/v1/persons/{personId}/visas": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": 0,
+            "format": "int32",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 10,
+            "format": "int32",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePagedResponseDtoVisaResponseDto"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Visa Management"
+        ],
+        "description": "Get paginated list of visas for a traveler",
+        "operationId": "listVisas",
+        "summary": "List Visas",
+        "x-google-backend": {
+          "address": "https://dev-assets-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/visas"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VisaBulkRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageListVisaResponseDto"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Visa Management"
+        ],
+        "description": "Create one or multiple visas for a traveler",
+        "operationId": "createVisas",
+        "summary": "Create Visa(s)",
+        "x-google-backend": {
+          "address": "https://dev-assets-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/visas"
+        }
+      }
+    },
+    "/api/v1/persons/{personId}/visas/{id}": {
+      "delete": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageVoid"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Visa Management"
+        ],
+        "description": "Delete a visa",
+        "operationId": "deleteVisa",
+        "summary": "Delete Visa",
+        "x-google-backend": {
+          "address": "https://dev-assets-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/visas/{id}"
+        }
+      },
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageVisaResponseDto"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Visa Management"
+        ],
+        "description": "Get visa details by ID",
+        "operationId": "getVisa",
+        "summary": "Get Visa",
+        "x-google-backend": {
+          "address": "https://dev-assets-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/visas/{id}"
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VisaRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageVisaResponseDto"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Visa Management"
+        ],
+        "description": "Update an existing visa",
+        "operationId": "updateVisa",
+        "summary": "Update Visa",
+        "x-google-backend": {
+          "address": "https://dev-assets-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/visas/{id}"
+        }
+      }
+    },
+    "/api/v1/trip-photo": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TripPhotoRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TripPhotoResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "trip-photo-controller"
+        ],
+        "operationId": "uploadTripPhoto",
+        "x-google-backend": {
+          "address": "https://dev-assets-service-541454969801.me-central1.run.app/api/v1/trip-photo"
+        }
+      }
+    },
+    "/api/v1/trip-photo/{photoId}/url": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "photoId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "trip-photo-controller"
+        ],
+        "operationId": "getPhotoUrl",
+        "summary": "Get photo URL by ID",
+        "x-google-backend": {
+          "address": "https://dev-assets-service-541454969801.me-central1.run.app/api/v1/trip-photo/{photoId}/url"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "PagedResponseDtoPassportResponseDto": {
+      "properties": {
+        "content": {
+          "items": {
+            "$ref": "#/definitions/PassportResponseDto"
+          },
+          "type": "array"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "page": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "size": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalElements": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "PagedResponseDtoVisaResponseDto": {
+      "properties": {
+        "content": {
+          "items": {
+            "$ref": "#/definitions/VisaResponseDto"
+          },
+          "type": "array"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "page": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "size": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalElements": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "PassportBulkRequestDto": {
+      "properties": {
+        "passports": {
+          "items": {
+            "$ref": "#/definitions/PassportRequestDto"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "passports"
+      ],
+      "type": "object"
+    },
+    "PassportRequestDto": {
+      "properties": {
+        "document": {
+          "format": "binary",
+          "type": "string"
+        },
+        "expirationDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "passportNumber": {
+          "pattern": "^[A-Z0-9]{6,9}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "expirationDate",
+        "nationality",
+        "passportNumber"
+      ],
+      "type": "object"
+    },
+    "PassportResponseDto": {
+      "properties": {
+        "createdAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "documentUrl": {
+          "type": "string"
+        },
+        "expirationDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "passportNumber": {
+          "type": "string"
+        },
+        "personId": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageListPassportResponseDto": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/PassportResponseDto"
+          },
+          "type": "array"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "items": {
+            "$ref": "#/definitions/PassportResponseDto"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageListVisaResponseDto": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/VisaResponseDto"
+          },
+          "type": "array"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "items": {
+            "$ref": "#/definitions/VisaResponseDto"
+          },
+          "type": "array"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessagePagedResponseDtoPassportResponseDto": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/PagedResponseDtoPassportResponseDto"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "$ref": "#/definitions/PagedResponseDtoPassportResponseDto"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessagePagedResponseDtoVisaResponseDto": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/PagedResponseDtoVisaResponseDto"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "$ref": "#/definitions/PagedResponseDtoVisaResponseDto"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessagePassportResponseDto": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/PassportResponseDto"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "$ref": "#/definitions/PassportResponseDto"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageVisaResponseDto": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/VisaResponseDto"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "$ref": "#/definitions/VisaResponseDto"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageVoid": {
+      "properties": {
+        "data": {
+          "type": "object"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "object"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TripPhotoRequest": {
+      "properties": {
+        "file": {
+          "format": "binary",
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TripPhotoResponse": {
+      "properties": {
+        "photoId": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "VisaBulkRequestDto": {
+      "properties": {
+        "visas": {
+          "items": {
+            "$ref": "#/definitions/VisaRequestDto"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "visas"
+      ],
+      "type": "object"
+    },
+    "VisaRequestDto": {
+      "properties": {
+        "document": {
+          "format": "binary",
+          "type": "string"
+        },
+        "expirationDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "issuingCountry": {
+          "type": "string"
+        },
+        "issuingDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "passportId": {
+          "type": "string"
+        },
+        "visaNumber": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "document",
+        "expirationDate",
+        "issuingCountry",
+        "issuingDate",
+        "passportId",
+        "visaNumber"
+      ],
+      "type": "object"
+    },
+    "VisaResponseDto": {
+      "properties": {
+        "createdAt": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "documentUrl": {
+          "type": "string"
+        },
+        "expirationDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "issuingCountry": {
+          "type": "string"
+        },
+        "issuingDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "number": {
+          "type": "string"
+        },
+        "passportId": {
+          "type": "string"
+        },
+        "passportNumber": {
+          "type": "string"
+        },
+        "personId": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "in": "query",
+      "name": "key",
+      "type": "apiKey"
+    },
+    "x_api_key": {
+      "in": "header",
+      "name": "x-api-key",
+      "type": "apiKey"
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    },
+    {
+      "x_api_key": []
+    }
+  ],
+  "tags": [
+    {
+      "description": "APIs for managing traveler passports",
+      "name": "Passport Management"
+    },
+    {
+      "description": "APIs for managing traveler visas",
+      "name": "Visa Management"
+    }
+  ],
+  "x-components": {}
+}

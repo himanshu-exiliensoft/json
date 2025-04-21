@@ -1,0 +1,810 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a trip and traveler API",
+    "title": "Trip API",
+    "version": "v1.0.0"
+  },
+  "host": "dev-trip-service-541454969801.me-central1.run.app",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/v1/traveler-roles": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageListTravelerRoleResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "traveler-role-controller"
+        ],
+        "operationId": "getAllRoles",
+        "x-google-backend": {
+          "address": "https://dev-trip-service-541454969801.me-central1.run.app/api/v1/traveler-roles"
+        }
+      }
+    },
+    "/api/v1/trip": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "travelerId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Search query for trip name or destination",
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ALL",
+            "description": "Trip status filter (UPCOMING, ONGOING, PAST)",
+            "enum": [
+              "ALL",
+              "UPCOMING",
+              "ONGOING",
+              "COMPLETED"
+            ],
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "START_DATE",
+            "description": "Field to sort by (NAME, START_DATE, END_DATE)",
+            "enum": [
+              "NAME",
+              "START_DATE",
+              "END_DATE"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "description": "Sort direction (ASC, DESC)",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "sortDirection",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 0,
+            "description": "Page number (0-based)",
+            "format": "int32",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 10,
+            "description": "Page size (1-50)",
+            "format": "int32",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Start date for filtering trips (yyyy-MM-dd)",
+            "format": "date",
+            "in": "query",
+            "name": "startDate",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "End date for filtering trips (yyyy-MM-dd)",
+            "format": "date",
+            "in": "query",
+            "name": "endDate",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved trips",
+            "schema": {
+              "$ref": "#/definitions/MyTripsPaginatedResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid filter parameters",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageMyTripsPaginatedResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageMyTripsPaginatedResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageMyTripsPaginatedResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Trip APIs"
+        ],
+        "description": "Returns a paginated list of trips with filtering and sorting options",
+        "operationId": "getMyTrips",
+        "summary": "Get paginated list of trips for the current traveler",
+        "x-google-backend": {
+          "address": "https://dev-trip-service-541454969801.me-central1.run.app/api/v1/trip"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "userId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateTripRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Trip created successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Trip APIs"
+        ],
+        "operationId": "createTrip",
+        "summary": "Create a new trip",
+        "x-google-backend": {
+          "address": "https://dev-trip-service-541454969801.me-central1.run.app/api/v1/trip"
+        }
+      }
+    },
+    "/api/v1/trip/{tripId}": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "ID of the trip to retrieve",
+            "in": "path",
+            "name": "tripId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "travelerId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved trip details",
+            "schema": {
+              "$ref": "#/definitions/TripDetailResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageTripDetailResponse"
+            }
+          },
+          "403": {
+            "description": "Forbidden - User doesn't have access to this trip",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageTripDetailResponse"
+            }
+          },
+          "404": {
+            "description": "Trip not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageTripDetailResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageTripDetailResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Trip APIs"
+        ],
+        "description": "Returns complete details for a specific trip",
+        "operationId": "getTripDetails",
+        "summary": "Get trip details by ID",
+        "x-google-backend": {
+          "address": "https://dev-trip-service-541454969801.me-central1.run.app/api/v1/trip/{tripId}"
+        }
+      }
+    },
+    "/api/v1/trip/{tripId}/travelers/{travelerId}": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tripId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "travelerId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TravelerProcessRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Travelers added successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "404": {
+            "description": "Trip or traveler group not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Trip Traveler APIs"
+        ],
+        "operationId": "addTravelersToTrip",
+        "summary": "Add travelers to trip",
+        "x-google-backend": {
+          "address": "https://dev-trip-service-541454969801.me-central1.run.app/api/v1/trip/{tripId}/travelers/{travelerId}"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateTripRequest": {
+      "properties": {
+        "destinations": {
+          "items": {
+            "$ref": "#/definitions/DestinationRequest"
+          },
+          "type": "array"
+        },
+        "endDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "image": {
+          "format": "binary",
+          "type": "string"
+        },
+        "startDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "travelerId": {
+          "type": "string"
+        },
+        "tripName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "destinations",
+        "endDate",
+        "startDate",
+        "travelerId",
+        "tripName"
+      ],
+      "type": "object"
+    },
+    "DestinationDetail": {
+      "properties": {
+        "cityId": {
+          "type": "string"
+        },
+        "cityName": {
+          "type": "string"
+        },
+        "countryFlag": {
+          "type": "string"
+        },
+        "countryName": {
+          "type": "string"
+        },
+        "placeId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "DestinationRequest": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "placeId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "placeId"
+      ],
+      "type": "object"
+    },
+    "MyTripResponse": {
+      "properties": {
+        "canEdit": {
+          "type": "boolean"
+        },
+        "destinations": {
+          "items": {
+            "$ref": "#/definitions/DestinationDetail"
+          },
+          "type": "array"
+        },
+        "durationDays": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "endDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "imageUrl": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "progress": {
+          "type": "string"
+        },
+        "startDate": {
+          "format": "date",
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "travelers": {
+          "items": {
+            "$ref": "#/definitions/TravelerDetail"
+          },
+          "type": "array"
+        },
+        "tripId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "MyTripsPaginatedResponse": {
+      "properties": {
+        "currentPage": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "hasNext": {
+          "type": "boolean"
+        },
+        "totalItems": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "trips": {
+          "items": {
+            "$ref": "#/definitions/MyTripResponse"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "OrganizerInfo": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "profilePictureUrl": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessage": {
+      "properties": {
+        "data": {
+          "type": "object"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageListTravelerRoleResponse": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/TravelerRoleResponse"
+          },
+          "type": "array"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageMyTripsPaginatedResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/MyTripsPaginatedResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageTripDetailResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/TripDetailResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TravelerDetail": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "profilePictureUrl": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TravelerProcessRequest": {
+      "properties": {
+        "requestedBy": {
+          "type": "string"
+        },
+        "travelerGroupId": {
+          "type": "string"
+        },
+        "travelers": {
+          "items": {
+            "$ref": "#/definitions/TravelerRequest"
+          },
+          "type": "array"
+        },
+        "tripId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TravelerRequest": {
+      "properties": {
+        "dob": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "personId": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "phoneCode": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "travelerId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TravelerRoleResponse": {
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TripBudgetResponse": {
+      "properties": {
+        "amountSpent": {
+          "type": "number"
+        },
+        "currencyCode": {
+          "type": "string"
+        },
+        "currencySymbol": {
+          "type": "string"
+        },
+        "overBudget": {
+          "type": "boolean"
+        },
+        "remainingBudget": {
+          "type": "number"
+        },
+        "totalBudget": {
+          "type": "number"
+        },
+        "tripId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TripComponentDetail": {
+      "properties": {
+        "date": {
+          "format": "date",
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TripDetailResponse": {
+      "properties": {
+        "components": {
+          "items": {
+            "$ref": "#/definitions/TripComponentDetail"
+          },
+          "type": "array"
+        },
+        "basicInfo": {
+          "$ref": "#/definitions/MyTripResponse"
+        },
+        "budget": {
+          "$ref": "#/definitions/TripBudgetResponse"
+        },
+        "organizer": {
+          "$ref": "#/definitions/OrganizerInfo"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "in": "query",
+      "name": "key",
+      "type": "apiKey"
+    },
+    "x_api_key": {
+      "in": "header",
+      "name": "x-api-key",
+      "type": "apiKey"
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    },
+    {
+      "x_api_key": []
+    }
+  ],
+  "tags": [
+    {
+      "description": "APIs for managing travelers in trips",
+      "name": "Trip Traveler APIs"
+    },
+    {
+      "description": "APIs for managing trips",
+      "name": "Trip APIs"
+    }
+  ],
+  "x-components": {}
+}

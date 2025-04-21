@@ -1,0 +1,4628 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "email": "Itinerehub@gmail.com",
+      "name": "Itinerehub",
+      "url": "https://www.itinerehub.com"
+    },
+    "description": "This is a itinerehub API documentation.",
+    "title": "ITINEREHUB API",
+    "version": "1.0"
+  },
+  "host": "dev-user-service-541454969801.me-central1.run.app",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/v1/admin/auth/login": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageMapStringObject"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Authentication API"
+        ],
+        "description": "admin login",
+        "operationId": "login_2",
+        "summary": "Admin login",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/auth/login"
+        }
+      }
+    },
+    "/api/v1/admin/languages": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "default": 0,
+            "format": "int32",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 10,
+            "format": "int32",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": "languageCode",
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Languages retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePageLanguageResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePageLanguageResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Language API"
+        ],
+        "operationId": "getAllLanguagesPaginated",
+        "summary": "Get all languages with pagination, sorting, and filtering",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/languages"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LanguageRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Language created successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageLanguageRequest"
+            }
+          },
+          "400": {
+            "description": "Invalid input",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageLanguageRequest"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageLanguageRequest"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Language API"
+        ],
+        "operationId": "createLanguage",
+        "summary": "Create a new language",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/languages"
+        }
+      }
+    },
+    "/api/v1/admin/languages/{languageCode}": {
+      "delete": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "Code of the language to be deleted",
+            "in": "path",
+            "name": "languageCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully deleted the language",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageVoid"
+            }
+          },
+          "404": {
+            "description": "Language not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageVoid"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageVoid"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Language API"
+        ],
+        "description": "This endpoint deletes a language by its code.",
+        "operationId": "deleteLanguageByCode",
+        "summary": "Delete a language by code",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/languages/{languageCode}"
+        }
+      },
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "Code of the language to be retrieved",
+            "in": "path",
+            "name": "languageCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Language retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageLanguageResponse"
+            }
+          },
+          "404": {
+            "description": "Language not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageLanguageResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageLanguageResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Language API"
+        ],
+        "operationId": "getLanguageByCode",
+        "summary": "Get language by code",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/languages/{languageCode}"
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "Code of the language to be updated",
+            "in": "path",
+            "name": "languageCode",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Language"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Language updated successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageLanguage"
+            }
+          },
+          "400": {
+            "description": "Invalid language data",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageLanguage"
+            }
+          },
+          "404": {
+            "description": "Language not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageLanguage"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageLanguage"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Language API"
+        ],
+        "operationId": "updateLanguage",
+        "summary": "Update language by code",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/languages/{languageCode}"
+        }
+      }
+    },
+    "/api/v1/admin/password-policy": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PasswordPolicyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePasswordPolicyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Password Policy API"
+        ],
+        "description": "Create or update the password policy",
+        "operationId": "upsertPasswordPolicy",
+        "summary": "Upsert Password Policy",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/password-policy"
+        }
+      }
+    },
+    "/api/v1/admin/roles": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "default": 0,
+            "format": "int32",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 10,
+            "format": "int32",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": "roleName",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "ASC",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "direction",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "roleName",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePageRoleResponseDTO"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Role"
+        ],
+        "description": "Retrieve all roles with pagination, sorting, and filtering",
+        "operationId": "getAllRoles",
+        "summary": "Get All Roles",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/roles"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageRoleResponseDTO"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Role"
+        ],
+        "description": "Create a new role",
+        "operationId": "createRole",
+        "summary": "Create Role",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/roles"
+        }
+      }
+    },
+    "/api/v1/admin/roles/{id}": {
+      "delete": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageVoid"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Role"
+        ],
+        "description": "Delete a role by its ID",
+        "operationId": "deleteRole",
+        "summary": "Delete Role",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/roles/{id}"
+        }
+      },
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageRoleResponseDTO"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Role"
+        ],
+        "description": "Retrieve a role by its ID",
+        "operationId": "getRoleById",
+        "summary": "Get Role by ID",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/roles/{id}"
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoleRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageRoleResponseDTO"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Role"
+        ],
+        "description": "Update a role by its ID",
+        "operationId": "updateRole",
+        "summary": "Update Role",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/roles/{id}"
+        }
+      }
+    },
+    "/api/v1/admin/terms-conditions": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "default": 0,
+            "format": "int32",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 10,
+            "format": "int32",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": "version",
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePageTermsConditionResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin terms and condition api"
+        ],
+        "operationId": "getAllTermsConditions",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/terms-conditions"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TermsConditionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageTermsConditionResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin terms and condition api"
+        ],
+        "description": "create terms and condition",
+        "operationId": "createTermsCondition",
+        "summary": "Create terms and condition",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/terms-conditions"
+        }
+      }
+    },
+    "/api/v1/admin/terms-conditions/{version}": {
+      "delete": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "version",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageVoid"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin terms and condition api"
+        ],
+        "description": "Delete terms and condition by version",
+        "operationId": "deleteTermsConditionByVersion",
+        "summary": "Delete terms and condition by version",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/terms-conditions/{version}"
+        }
+      },
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "version",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageTermsConditionResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin terms and condition api"
+        ],
+        "description": "Get terms and condition by version",
+        "operationId": "getTermsConditionByVersion",
+        "summary": "Get terms and condition by version",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/terms-conditions/{version}"
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "version",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TermsConditionRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageTermsConditionResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin terms and condition api"
+        ],
+        "description": "Update terms and condition by version",
+        "operationId": "updateTermsConditionByVersion",
+        "summary": "Update terms and condition by version",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/terms-conditions/{version}"
+        }
+      }
+    },
+    "/api/v1/admin/translation-cache": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "languageCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin translation cache"
+        ],
+        "operationId": "getAllCacheTranslationsForLanguage",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/translation-cache"
+        }
+      }
+    },
+    "/api/v1/admin/translation-cache/refresh-cache": {
+      "post": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin translation cache"
+        ],
+        "operationId": "refreshCache_1",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/translation-cache/refresh-cache"
+        }
+      }
+    },
+    "/api/v1/admin/translations": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "default": 0,
+            "format": "int32",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 10,
+            "format": "int32",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": "labelKey",
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Translations retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "404": {
+            "description": "Translations not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Translations APIs"
+        ],
+        "operationId": "getAllTranslations",
+        "summary": "Get all translations with pagination, sorting, and filtering",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/translations"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TranslationRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Translations APIs"
+        ],
+        "description": "Add translation",
+        "operationId": "addTranslations",
+        "summary": "Add Translations",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/translations"
+        }
+      }
+    },
+    "/api/v1/admin/translations/dump": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TranslationDumpRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageObject"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "translation-dump-controller"
+        ],
+        "operationId": "dumpTranslations",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/translations/dump"
+        }
+      }
+    },
+    "/api/v1/admin/translations/{labelKey}": {
+      "delete": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "labelKey",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Translations soft deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "404": {
+            "description": "Translations not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Translations APIs"
+        ],
+        "operationId": "deleteTranslationsByLabelKey",
+        "summary": "Delete translations by labelKey",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/translations/{labelKey}"
+        }
+      },
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "labelKey",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Translations retrieved successfully for label key",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "404": {
+            "description": "Translations not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Translations APIs"
+        ],
+        "operationId": "getTranslationsByLabelKey",
+        "summary": "Get translations by labelKey",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/translations/{labelKey}"
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "labelKey",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TranslationsByLabelKeyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Translations updated successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "404": {
+            "description": "Translations not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Translations APIs"
+        ],
+        "operationId": "updateTranslationsByLabelKey",
+        "summary": "Update translations by labelKey",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/translations/{labelKey}"
+        }
+      }
+    },
+    "/api/v1/admin/users": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "default": 0,
+            "description": "Page number for pagination",
+            "format": "int32",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 20,
+            "description": "Number of items per page",
+            "format": "int32",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Sorting criteria (format: property,asc|desc)",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePageUserResponseDTO"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin User"
+        ],
+        "description": "Retrieve all users with pagination, filtering, and sorting",
+        "operationId": "getAllUsers",
+        "summary": "Get All Users",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/users"
+        }
+      }
+    },
+    "/api/v1/admin/users/status": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserStatusRequestDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageUserResponseDTO"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin User"
+        ],
+        "description": "Update the status of a user (Active/Inactive)",
+        "operationId": "updateUserStatus",
+        "summary": "Update User Status",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/users/status"
+        }
+      }
+    },
+    "/api/v1/admin/welcome": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "default": 0,
+            "format": "int32",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 10,
+            "format": "int32",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": "id",
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "search",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/WelcomeMessage"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Welcome Message"
+        ],
+        "description": "Get welcome messages: Pagination, Filtering, Sorting",
+        "operationId": "getWelcomeMessagesPage",
+        "summary": "Get welcome messages",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/welcome"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WelcomeMessageCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Welcome message created successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Welcome Message"
+        ],
+        "operationId": "createWelcomeMessage",
+        "summary": "Create a new welcome message",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/welcome"
+        }
+      }
+    },
+    "/api/v1/admin/welcome/{id}": {
+      "delete": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Welcome message deleted successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "404": {
+            "description": "Welcome message not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Welcome Message"
+        ],
+        "operationId": "deleteWelcomeMessageById",
+        "summary": "Delete welcome message by ID",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/welcome/{id}"
+        }
+      },
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Welcome message retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/WelcomeMessageStepResponse"
+            }
+          },
+          "404": {
+            "description": "Welcome message not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Welcome Message"
+        ],
+        "operationId": "getWelcomeMessageById",
+        "summary": "Get welcome message by ID",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/welcome/{id}"
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/WelcomeMessageUpdatePayload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Messages updated successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "404": {
+            "description": "Messages not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Admin Welcome Message"
+        ],
+        "operationId": "updateWelcomeMessage",
+        "summary": "Update welcome message by ID",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/admin/welcome/{id}"
+        }
+      }
+    },
+    "/api/v1/auth/forgot-password": {
+      "post": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageVoid"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Authentication"
+        ],
+        "description": "Forget Password",
+        "operationId": "forgetPassword",
+        "summary": "Forget Password",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/auth/forgot-password"
+        }
+      }
+    },
+    "/api/v1/auth/generate-otp": {
+      "post": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "emailId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "codeFrom",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageString"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Authentication"
+        ],
+        "description": "Generates a One-Time Password (OTP) for user authentication. The 'codeSource' can either be 'FP' for 'Forget Password' or 'EMAIL' for 'User SignUp'.",
+        "operationId": "generateOTP",
+        "summary": "Generate One-Time Password (OTP)",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/auth/generate-otp"
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageMapStringObject"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Authentication"
+        ],
+        "description": "Authenticate user with username and password",
+        "operationId": "login_1",
+        "summary": "User Login",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/auth/login"
+        }
+      }
+    },
+    "/api/v1/auth/reset-password": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdatePasswordRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageVoid"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Authentication"
+        ],
+        "description": "Update the user's password with the current otp verification",
+        "operationId": "updatePassword",
+        "summary": "Update Password",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/auth/reset-password"
+        }
+      }
+    },
+    "/api/v1/email/verify": {
+      "post": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "emailId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "format": "int32",
+            "in": "query",
+            "name": "otpCode",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "codeFrom",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageMapStringObject"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Email Verification"
+        ],
+        "description": "Verify your email address using the provided OTP. In CodeForm, pass either FP (Forget Password) or EMAIL (User SignUp)",
+        "operationId": "verifyEmail",
+        "summary": "Verify Email",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/email/verify"
+        }
+      }
+    },
+    "/api/v1/password-policy": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePasswordPolicyResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Password Policy API"
+        ],
+        "description": "Fetch the current password policy",
+        "operationId": "getPasswordPolicy",
+        "summary": "Get Password Policy",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/password-policy"
+        }
+      }
+    },
+    "/api/v1/persons/{personId}/frequent-travellers": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "default": 0,
+            "format": "int32",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 10,
+            "format": "int32",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "collectionFormat": "multi",
+            "default": [
+              "createdAt"
+            ],
+            "in": "query",
+            "items": {
+              "type": "string"
+            },
+            "name": "sort",
+            "required": false,
+            "type": "array"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePageFrequentTravelerListResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Frequent Travelers  Management"
+        ],
+        "description": "Get paginated list of frequent travelers associated with the account",
+        "operationId": "listFrequentTravelers",
+        "summary": "List Frequent Travellers",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/frequent-travellers"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FrequentTravelerRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageFrequentTravelerResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Frequent Travelers  Management"
+        ],
+        "description": "Add a new frequent traveler to the user's account",
+        "operationId": "addFrequentTraveler",
+        "summary": "Add Frequent Traveller",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/frequent-travellers"
+        }
+      }
+    },
+    "/api/v1/persons/{personId}/frequent-travellers/{travelerId}": {
+      "delete": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "travelerId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageVoid"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Frequent Travelers  Management"
+        ],
+        "description": "Delete and anonymize a frequent traveler",
+        "operationId": "deleteFrequentTraveler",
+        "summary": "Delete Frequent Traveller",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/frequent-travellers/{travelerId}"
+        }
+      },
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "travelerId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageFrequentTravelerDetailResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Frequent Travelers  Management"
+        ],
+        "description": "Retrieve details of a specific frequent traveler",
+        "operationId": "getFrequentTraveler",
+        "summary": "Get Frequent Traveller Details",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/frequent-travellers/{travelerId}"
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "personId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "path",
+            "name": "travelerId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FrequentTravelerRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageFrequentTravelerResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Frequent Travelers  Management"
+        ],
+        "description": "Update details of an existing frequent traveler",
+        "operationId": "editFrequentTraveler",
+        "summary": "Edit Frequent Traveller",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/persons/{personId}/frequent-travellers/{travelerId}"
+        }
+      }
+    },
+    "/api/v1/sso/login": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SSOLoginRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageMapStringObject"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Single Sign-On"
+        ],
+        "description": "Authenticate user using Single Sign-On",
+        "operationId": "login",
+        "summary": "SSO Login",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/sso/login"
+        }
+      }
+    },
+    "/api/v1/sso/signup": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SSOSignUpRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageMapStringObject"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Single Sign-On"
+        ],
+        "description": "Register a new user using Single Sign-On",
+        "operationId": "ssoSignup",
+        "summary": "SSO Signup",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/sso/signup"
+        }
+      }
+    },
+    "/api/v1/translations": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/WelcomeMessage"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Translations APIs"
+        ],
+        "description": "Get translation",
+        "operationId": "getTranslationsGroupedByLanguage",
+        "summary": "Get Translations Group By Language",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/translations"
+        }
+      }
+    },
+    "/api/v1/translations/language": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "language",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Translations APIs"
+        ],
+        "operationId": "getTranslationWithRespectLabel",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/translations/language"
+        }
+      }
+    },
+    "/api/v1/translations/refresh-cache": {
+      "post": {
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Translations APIs"
+        ],
+        "operationId": "refreshCache",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/translations/refresh-cache"
+        }
+      }
+    },
+    "/api/v1/translations/test": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Translations APIs"
+        ],
+        "operationId": "testLanguage",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/translations/test"
+        }
+      }
+    },
+    "/api/v1/translations/{languageCode}": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "languageCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Translations APIs"
+        ],
+        "operationId": "getTranslationsForLanguage",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/translations/{languageCode}"
+        }
+      }
+    },
+    "/api/v1/travelers/by-email": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "email",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Traveler retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "404": {
+            "description": "Traveler not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Traveler APIs"
+        ],
+        "operationId": "getTravelerByEmail",
+        "summary": "Get traveler by email",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/travelers/by-email"
+        }
+      }
+    },
+    "/api/v1/travelers/{travelerId}": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "travelerId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Traveler retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "404": {
+            "description": "Traveler not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Traveler APIs"
+        ],
+        "operationId": "getTravelerInfo",
+        "summary": "Get traveler by ID",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/travelers/{travelerId}"
+        }
+      }
+    },
+    "/api/v1/users/signup": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SignupRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageSignupResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "User Registration"
+        ],
+        "description": "Register a new user",
+        "operationId": "signup",
+        "summary": "User Signup",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/users/signup"
+        }
+      }
+    },
+    "/api/v1/users/terms-conditions": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "languageCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageMapStringObject"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "User Registration"
+        ],
+        "description": "Retrieve the latest terms and conditions based on the provided language code.",
+        "operationId": "getTermsConditions",
+        "summary": "Get latest terms condition by language code",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/users/terms-conditions"
+        }
+      }
+    },
+    "/api/v1/users/{userId}/info": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/UserInfoResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "user-controller"
+        ],
+        "operationId": "getUserInfo",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/users/{userId}/info"
+        }
+      }
+    },
+    "/api/v1/welcome": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "language",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/WelcomeMessage"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "WelcomeMessage"
+        ],
+        "description": "Get welcome messages by language code. The response is WelcomeMessage object with welcomeMessageId, language and messages.",
+        "operationId": "getWelcomeMessage",
+        "summary": "Get welcome messages by language code",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/api/v1/welcome"
+        }
+      }
+    },
+    "/profiles": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "userId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "personId",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageUserProfileResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Profile Management"
+        ],
+        "operationId": "getProfileOverview",
+        "summary": "Get Profile Overview",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/profiles"
+        }
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "ID of the Profile to be updated",
+            "in": "query",
+            "name": "personId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "ID of the Profile(It can be userId/travelerId based on person type) to be updated",
+            "in": "query",
+            "name": "entityId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserProfileRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated the User Profile",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageUserProfileResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid User Profile data",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageUserProfileResponse"
+            }
+          },
+          "404": {
+            "description": "User Profile not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageUserProfileResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Profile Management"
+        ],
+        "description": "This endpoint updates an existing User Profile by its userId.",
+        "operationId": "updateProfile",
+        "summary": "Update a Profile",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/profiles"
+        }
+      }
+    },
+    "/profiles/profile-picture": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "User ID for which the profile picture needs to be updated",
+            "in": "query",
+            "name": "userId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "ID of the Profile to be updated",
+            "in": "query",
+            "name": "personId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProfilePictureUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile picture updated successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageProfilePictureResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid request",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageProfilePictureResponse"
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageProfilePictureResponse"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageProfilePictureResponse"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Profile Management"
+        ],
+        "description": "This endpoint allows users to upload or update their profile picture separately.",
+        "operationId": "uploadProfilePicture",
+        "summary": "Upload or Update Profile Picture",
+        "x-google-backend": {
+          "address": "http://dev-user-service-541454969801.me-central1.run.app/profiles/profile-picture"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CountryDto": {
+      "properties": {
+        "countryFlag": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "isoCode2": {
+          "type": "string"
+        },
+        "isoCode3": {
+          "type": "string"
+        },
+        "latitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "longitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phoneNumberFormat": {
+          "$ref": "#/definitions/PhoneNumberFormatDto"
+        }
+      },
+      "type": "object"
+    },
+    "FrequentTravelerDetailResponse": {
+      "properties": {
+        "dob": {
+          "format": "date",
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "phoneCode": {
+          "type": "string"
+        },
+        "profilePictureUrl": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "travelerId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "FrequentTravelerListResponse": {
+      "properties": {
+        "dob": {
+          "format": "date",
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "phoneCode": {
+          "type": "string"
+        },
+        "profilePictureUrl": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "travelerId": {
+          "type": "string"
+        },
+        "travelerPersonId": {
+          "type": "string"
+        },
+        "userPersonId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "FrequentTravelerRequest": {
+      "properties": {
+        "dob": {
+          "format": "date",
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "phone": {
+          "pattern": "^$|^[1-9]\\d{5,14}$",
+          "type": "string"
+        },
+        "phoneCode": {
+          "pattern": "^$|^\\+?[1-9]\\d{0,5}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "nationality"
+      ],
+      "type": "object"
+    },
+    "FrequentTravelerResponse": {
+      "properties": {
+        "dob": {
+          "format": "date",
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "phoneCode": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Language": {
+      "properties": {
+        "languageCode": {
+          "type": "string"
+        },
+        "languageName": {
+          "type": "string"
+        },
+        "nativeName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "LanguageRequest": {
+      "properties": {
+        "languageCode": {
+          "pattern": "[a-z]{2,3}$",
+          "type": "string"
+        },
+        "languageName": {
+          "type": "string"
+        },
+        "nativeName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "languageCode",
+        "languageName",
+        "nativeName"
+      ],
+      "type": "object"
+    },
+    "LanguageResponse": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "languageCode": {
+          "type": "string"
+        },
+        "languageName": {
+          "type": "string"
+        },
+        "nativeName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "LanguageTranslationDTO": {
+      "properties": {
+        "languageCode": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "languageCode",
+        "value"
+      ],
+      "type": "object"
+    },
+    "LoginRequest": {
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "password",
+        "username"
+      ],
+      "type": "object"
+    },
+    "PageFrequentTravelerListResponse": {
+      "properties": {
+        "content": {
+          "items": {
+            "$ref": "#/definitions/FrequentTravelerListResponse"
+          },
+          "type": "array"
+        },
+        "empty": {
+          "type": "boolean"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "number": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfElements": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageable": {
+          "$ref": "#/definitions/PageableObject"
+        },
+        "size": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sort": {
+          "$ref": "#/definitions/SortObject"
+        },
+        "totalElements": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "PageLanguageResponse": {
+      "properties": {
+        "content": {
+          "items": {
+            "$ref": "#/definitions/LanguageResponse"
+          },
+          "type": "array"
+        },
+        "empty": {
+          "type": "boolean"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "number": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfElements": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageable": {
+          "$ref": "#/definitions/PageableObject"
+        },
+        "size": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sort": {
+          "$ref": "#/definitions/SortObject"
+        },
+        "totalElements": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "PageRoleResponseDTO": {
+      "properties": {
+        "content": {
+          "items": {
+            "$ref": "#/definitions/RoleResponseDTO"
+          },
+          "type": "array"
+        },
+        "empty": {
+          "type": "boolean"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "number": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfElements": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageable": {
+          "$ref": "#/definitions/PageableObject"
+        },
+        "size": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sort": {
+          "$ref": "#/definitions/SortObject"
+        },
+        "totalElements": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "PageTermsConditionResponse": {
+      "properties": {
+        "content": {
+          "items": {
+            "$ref": "#/definitions/TermsConditionResponse"
+          },
+          "type": "array"
+        },
+        "empty": {
+          "type": "boolean"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "number": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfElements": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageable": {
+          "$ref": "#/definitions/PageableObject"
+        },
+        "size": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sort": {
+          "$ref": "#/definitions/SortObject"
+        },
+        "totalElements": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "PageUserResponseDTO": {
+      "properties": {
+        "content": {
+          "items": {
+            "$ref": "#/definitions/UserResponseDTO"
+          },
+          "type": "array"
+        },
+        "empty": {
+          "type": "boolean"
+        },
+        "first": {
+          "type": "boolean"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "number": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "numberOfElements": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageable": {
+          "$ref": "#/definitions/PageableObject"
+        },
+        "size": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "sort": {
+          "$ref": "#/definitions/SortObject"
+        },
+        "totalElements": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "Pageable": {
+      "properties": {
+        "page": {
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "size": {
+          "format": "int32",
+          "minimum": 1,
+          "type": "integer"
+        },
+        "sort": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "PageableObject": {
+      "properties": {
+        "offset": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "pageNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageSize": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "paged": {
+          "type": "boolean"
+        },
+        "sort": {
+          "$ref": "#/definitions/SortObject"
+        },
+        "unpaged": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "PasswordPolicyRequest": {
+      "properties": {
+        "maxLength": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "minLength": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "requireLowercase": {
+          "type": "boolean"
+        },
+        "requireNumber": {
+          "type": "boolean"
+        },
+        "requireSpecialChar": {
+          "type": "boolean"
+        },
+        "requireUppercase": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "maxLength",
+        "minLength"
+      ],
+      "type": "object"
+    },
+    "PasswordPolicyResponse": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "maxLength": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "minLength": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "requireLowercase": {
+          "type": "boolean"
+        },
+        "requireNumber": {
+          "type": "boolean"
+        },
+        "requireSpecialChar": {
+          "type": "boolean"
+        },
+        "requireUppercase": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "PhoneNumberFormatDto": {
+      "properties": {
+        "format": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "phoneCode": {
+          "type": "string"
+        },
+        "placeHolderExample": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ProfilePictureResponse": {
+      "properties": {
+        "image": {
+          "type": "string"
+        },
+        "personId": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessage": {
+      "properties": {
+        "data": {
+          "type": "object"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageFrequentTravelerDetailResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/FrequentTravelerDetailResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageFrequentTravelerResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/FrequentTravelerResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageLanguage": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/Language"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageLanguageRequest": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/LanguageRequest"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageLanguageResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/LanguageResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageMapStringObject": {
+      "properties": {
+        "data": {
+          "additionalProperties": {
+            "type": "object"
+          },
+          "type": "object"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageObject": {
+      "properties": {
+        "data": {
+          "type": "object"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessagePageFrequentTravelerListResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/PageFrequentTravelerListResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessagePageLanguageResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/PageLanguageResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessagePageRoleResponseDTO": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/PageRoleResponseDTO"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessagePageTermsConditionResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/PageTermsConditionResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessagePageUserResponseDTO": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/PageUserResponseDTO"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessagePasswordPolicyResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/PasswordPolicyResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageProfilePictureResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/ProfilePictureResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageRoleResponseDTO": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/RoleResponseDTO"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageSignupResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/SignupResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageString": {
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageTermsConditionResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/TermsConditionResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageUserProfileResponse": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/UserProfileResponse"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageUserResponseDTO": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/UserResponseDTO"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageVoid": {
+      "properties": {
+        "data": {
+          "type": "object"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "RoleRequestDTO": {
+      "properties": {
+        "roleName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "roleName"
+      ],
+      "type": "object"
+    },
+    "RoleResponseDTO": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "roleName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "SSOLoginRequest": {
+      "properties": {
+        "providerId": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "providerId",
+        "username"
+      ],
+      "type": "object"
+    },
+    "SSOSignUpRequest": {
+      "properties": {
+        "anonymous": {
+          "type": "boolean"
+        },
+        "emailAccount": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "nickname": {
+          "type": "string"
+        },
+        "photoUrl": {
+          "type": "string"
+        },
+        "providerUserId": {
+          "type": "string"
+        },
+        "termsConditionId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "emailAccount",
+        "firstName",
+        "nickname",
+        "providerUserId",
+        "termsConditionId"
+      ],
+      "type": "object"
+    },
+    "SignupRequest": {
+      "properties": {
+        "anonymous": {
+          "type": "boolean"
+        },
+        "dob": {
+          "type": "string"
+        },
+        "emailAccount": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "termsConditionId": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "emailAccount",
+        "firstName",
+        "password",
+        "termsConditionId"
+      ],
+      "type": "object"
+    },
+    "SignupResponse": {
+      "properties": {
+        "dob": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "isAnonymous": {
+          "type": "boolean"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "nickName": {
+          "type": "string"
+        },
+        "termsConditions": {
+          "$ref": "#/definitions/TermsCondition"
+        }
+      },
+      "type": "object"
+    },
+    "SortObject": {
+      "properties": {
+        "empty": {
+          "type": "boolean"
+        },
+        "sorted": {
+          "type": "boolean"
+        },
+        "unsorted": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "TermsCondition": {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TermsConditionLanguageDTO": {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "languageCode": {
+          "type": "string"
+        },
+        "languageName": {
+          "type": "string"
+        },
+        "nativeName": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TermsConditionRequest": {
+      "properties": {
+        "terms": {
+          "items": {
+            "$ref": "#/definitions/TermsLanguageDTO"
+          },
+          "type": "array"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "terms",
+        "version"
+      ],
+      "type": "object"
+    },
+    "TermsConditionResponse": {
+      "properties": {
+        "terms": {
+          "items": {
+            "$ref": "#/definitions/TermsConditionLanguageDTO"
+          },
+          "type": "array"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TermsLanguageDTO": {
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "languageCode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "content",
+        "languageCode"
+      ],
+      "type": "object"
+    },
+    "TranslationEntryDTO": {
+      "properties": {
+        "labelKey": {
+          "type": "string"
+        },
+        "languageTranslations": {
+          "items": {
+            "$ref": "#/definitions/LanguageTranslationDTO"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "labelKey",
+        "languageTranslations"
+      ],
+      "type": "object"
+    },
+    "TranslationRequest": {
+      "properties": {
+        "translations": {
+          "items": {
+            "$ref": "#/definitions/TranslationEntryDTO"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "translations"
+      ],
+      "type": "object"
+    },
+    "UpdatePasswordRequest": {
+      "properties": {
+        "newPassword": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "newPassword",
+        "username"
+      ],
+      "type": "object"
+    },
+    "UserInfoResponse": {
+      "properties": {
+        "customerOwnerId": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "UserProfileRequest": {
+      "description": "user profile object with updated details",
+      "properties": {
+        "dob": {
+          "format": "date",
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "phone": {
+          "pattern": "^$|^[1-9]\\d{5,14}$",
+          "type": "string"
+        },
+        "phoneCode": {
+          "pattern": "^$|^\\+?[1-9]\\d{0,5}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "nationality"
+      ],
+      "type": "object"
+    },
+    "UserProfileResponse": {
+      "properties": {
+        "countryDto": {
+          "$ref": "#/definitions/CountryDto"
+        },
+        "dob": {
+          "format": "date",
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "profilePictureUrl": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "UserResponseDTO": {
+      "properties": {
+        "anonymous": {
+          "type": "boolean"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "nickName": {
+          "type": "string"
+        },
+        "personName": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "ACTIVE",
+            "INACTIVE"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "UserStatusRequestDTO": {
+      "properties": {
+        "status": {
+          "type": "string"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "userId"
+      ],
+      "type": "object"
+    },
+    "WelcomeMessage": {
+      "properties": {
+        "language": {
+          "$ref": "#/definitions/Language"
+        },
+        "messages": {
+          "items": {
+            "$ref": "#/definitions/WelcomeMessageStepResponse"
+          },
+          "type": "array"
+        },
+        "welcomeMessageId": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "WelcomeMessageRequest": {
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "additionText": {
+          "type": "string"
+        },
+        "languageCode": {
+          "pattern": "[a-z]{2,3}$",
+          "type": "string"
+        },
+        "startDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "stepNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "titleText": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "additionText",
+        "languageCode",
+        "startDate",
+        "stepNumber",
+        "titleText"
+      ],
+      "type": "object"
+    },
+    "WelcomeMessageStepResponse": {
+      "properties": {
+        "additionText": {
+          "type": "string"
+        },
+        "imageURL": {
+          "type": "string"
+        },
+        "isActive": {
+          "type": "boolean"
+        },
+        "startDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "stepNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "titleText": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "WelcomeMessageUpdateRequest": {
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "additionText": {
+          "type": "string"
+        },
+        "languageCode": {
+          "pattern": "[a-z]{2,3}$",
+          "type": "string"
+        },
+        "startDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "stepNumber": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "titleText": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "WelcomeMessageUpdatePayload": {
+      "properties": {
+        "image": {
+          "format": "binary",
+          "type": "string"
+        },
+        "welcomeMessage": {
+          "$ref": "#/definitions/WelcomeMessageUpdateRequest"
+        }
+      },
+      "required": [
+        "welcomeMessage"
+      ],
+      "type": "object"
+    },
+    "TranslationsByLabelKeyRequest": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/definitions/LanguageTranslationDTO"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "TranslationDumpRequest": {
+      "properties": {
+        "data": {
+          "additionalProperties": {
+            "additionalProperties": {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            "type": "object"
+          },
+          "properties": {},
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "WelcomeMessageCreateRequest": {
+      "properties": {
+        "image": {
+          "format": "binary",
+          "type": "string"
+        },
+        "welcomeMessage": {
+          "$ref": "#/definitions/WelcomeMessageRequest"
+        }
+      },
+      "required": [
+        "image",
+        "welcomeMessage"
+      ],
+      "type": "object"
+    },
+    "ProfilePictureUpdateRequest": {
+      "properties": {
+        "image": {
+          "description": "Profile picture file",
+          "format": "binary",
+          "type": "string"
+        }
+      },
+      "required": [
+        "image"
+      ],
+      "type": "object"
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "in": "query",
+      "name": "key",
+      "type": "apiKey"
+    },
+    "x_api_key": {
+      "in": "header",
+      "name": "x-api-key",
+      "type": "apiKey"
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    },
+    {
+      "x_api_key": []
+    }
+  ],
+  "tags": [
+    {
+      "description": "Admin translation cache APIs",
+      "name": "Admin translation cache"
+    },
+    {
+      "description": "Email Verification APIs",
+      "name": "Email Verification"
+    },
+    {
+      "description": "Admin Translations APIs",
+      "name": "Admin Translations APIs"
+    },
+    {
+      "description": "Admin User APIs",
+      "name": "Admin User"
+    },
+    {
+      "description": "APIs for traveler information",
+      "name": "Traveler APIs"
+    },
+    {
+      "description": "User Registration APIs",
+      "name": "User Registration"
+    },
+    {
+      "description": "Welcome Message APIs",
+      "name": "WelcomeMessage"
+    },
+    {
+      "description": "APIs for managing frequent travelers",
+      "name": "Frequent Travelers  Management"
+    },
+    {
+      "description": "Admin terms and condition APIs",
+      "name": "Admin terms and condition api"
+    },
+    {
+      "description": "Authentication APIs",
+      "name": "Authentication"
+    },
+    {
+      "description": "Admin Role APIs",
+      "name": "Admin Role"
+    },
+    {
+      "description": "Translations APIs",
+      "name": "Translations APIs"
+    },
+    {
+      "description": "Single Sign-On APIs",
+      "name": "Single Sign-On"
+    },
+    {
+      "description": "Welcome Message APIs",
+      "name": "Admin Welcome Message"
+    }
+  ],
+  "x-components": {}
+}

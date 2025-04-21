@@ -1,0 +1,175 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "host": "dev-notification-service-541454969801.me-central1.run.app",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/v1/notifications/process": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NotificationEvent"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notification processed successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "404": {
+            "description": "Template not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Notification Processing APIs"
+        ],
+        "operationId": "processNotificationEvent",
+        "summary": "Process notification event",
+        "x-google-backend": {
+          "address": "https://dev-notification-service-541454969801.me-central1.run.app/api/v1/notifications/process"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "NotificationEvent": {
+      "properties": {
+        "eventId": {
+          "type": "string"
+        },
+        "languageCode": {
+          "type": "string"
+        },
+        "notificationType": {
+          "enum": [
+            "WELCOME_MESSAGE",
+            "TRAVELER_INVITATION",
+            "CONTACT_INVITATION",
+            "TRIP_INVITATION",
+            "INVITATION_REMINDER",
+            "SERVICE_ADDED",
+            "SERVICE_UPDATED",
+            "SERVICE_REMOVED",
+            "DOCUMENT_EXPIRATION",
+            "DOCUMENT_EXPIRED",
+            "TRAVELER_ADDED_TRIP",
+            "TRIP_CREATION"
+          ],
+          "type": "string"
+        },
+        "preferredChannel": {
+          "enum": [
+            "EMAIL",
+            "SMS",
+            "PUSH",
+            "IN_APP"
+          ],
+          "type": "string"
+        },
+        "recipientContactInfo": {
+          "type": "string"
+        },
+        "recipientId": {
+          "type": "string"
+        },
+        "retryCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "senderId": {
+          "type": "string"
+        },
+        "templateVariables": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessage": {
+      "properties": {
+        "data": {
+          "type": "object"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "in": "query",
+      "name": "key",
+      "type": "apiKey"
+    },
+    "x_api_key": {
+      "in": "header",
+      "name": "x-api-key",
+      "type": "apiKey"
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    },
+    {
+      "x_api_key": []
+    }
+  ],
+  "tags": [
+    {
+      "description": "APIs for processing notification events",
+      "name": "Notification Processing APIs"
+    }
+  ],
+  "x-components": {}
+}

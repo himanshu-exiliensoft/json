@@ -1,0 +1,677 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "host": "dev-location-service-541454969801.me-central1.run.app",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/v1/cities/{cityId}": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "ID of the city to retrieve",
+            "in": "path",
+            "name": "cityId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved city details",
+            "schema": {
+              "$ref": "#/definitions/CityResponseDTO"
+            }
+          },
+          "404": {
+            "description": "City not found",
+            "schema": {
+              "$ref": "#/definitions/CityResponseDTO"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/CityResponseDTO"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "city-controller"
+        ],
+        "description": "Returns complete city details by ID",
+        "operationId": "getCityById",
+        "summary": "Get city by ID",
+        "x-google-backend": {
+          "address": "https://dev-location-service-541454969801.me-central1.run.app/api/v1/cities/{cityId}"
+        }
+      }
+    },
+    "/api/v1/countries": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "default": 0,
+            "description": "Page number (0..N)",
+            "format": "int32",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer",
+            "x-example": 0
+          },
+          {
+            "default": 10,
+            "description": "Number of items per page",
+            "format": "int32",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "type": "integer",
+            "x-example": 10
+          },
+          {
+            "default": "name",
+            "description": "Sorting field (name, isoCode2, isoCode3)",
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string",
+            "x-example": "name"
+          },
+          {
+            "default": "ASC",
+            "description": "Sorting direction (ASC/DESC)",
+            "in": "query",
+            "name": "sortDirection",
+            "required": false,
+            "type": "string",
+            "x-example": "ASC"
+          },
+          {
+            "description": "Filter by ISO Alpha-2 code (case insensitive)",
+            "in": "query",
+            "name": "isoCode2",
+            "required": false,
+            "type": "string",
+            "x-example": "USA"
+          },
+          {
+            "description": "Filter by phone code",
+            "in": "query",
+            "name": "phoneCode",
+            "required": false,
+            "type": "string",
+            "x-example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved list of countries",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "400": {
+            "description": "Invalid parameters provided",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePagedResponseDtoCountryDto"
+            }
+          },
+          "404": {
+            "description": "No countries found",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePagedResponseDtoCountryDto"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessagePagedResponseDtoCountryDto"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Country Management"
+        ],
+        "description": "Retrieves a paginated list of all active countries with sorting options and optional filtering",
+        "operationId": "getAllCountries",
+        "summary": "Get paginated list of countries",
+        "x-google-backend": {
+          "address": "https://dev-location-service-541454969801.me-central1.run.app/api/v1/countries"
+        }
+      }
+    },
+    "/api/v1/countries/{countryId}": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "countryId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessageCountryDto"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Country Management"
+        ],
+        "operationId": "getCountryInfo",
+        "x-google-backend": {
+          "address": "https://dev-location-service-541454969801.me-central1.run.app/api/v1/countries/{countryId}"
+        }
+      }
+    },
+    "/api/v1/currencies": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "searchTerm",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "code",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "countryId",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": true,
+            "in": "query",
+            "name": "activeOnly",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "default": 0,
+            "format": "int32",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 20,
+            "format": "int32",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": "name",
+            "in": "query",
+            "name": "sortBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": "asc",
+            "in": "query",
+            "name": "sortDirection",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Currencies retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "400": {
+            "description": "Invalid request parameters"
+          },
+          "404": {
+            "description": "No currencies found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Currency Management"
+        ],
+        "operationId": "getCurrencies",
+        "summary": "Get paginated currencies with filters",
+        "x-google-backend": {
+          "address": "https://dev-location-service-541454969801.me-central1.run.app/api/v1/currencies"
+        }
+      }
+    },
+    "/api/v1/currencies/code/{currencyCode}": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "currencyCode",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Currency retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "404": {
+            "description": "Currency not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Currency Management"
+        ],
+        "operationId": "getCurrencyByCode",
+        "summary": "Get currency by code",
+        "x-google-backend": {
+          "address": "https://dev-location-service-541454969801.me-central1.run.app/api/v1/currencies/code/{currencyCode}"
+        }
+      }
+    },
+    "/api/v1/currencies/{currencyId}": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "currencyId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Currency retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "404": {
+            "description": "Currency not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Currency Management"
+        ],
+        "operationId": "getCurrencyById",
+        "summary": "Get currency by ID",
+        "x-google-backend": {
+          "address": "https://dev-location-service-541454969801.me-central1.run.app/api/v1/currencies/{currencyId}"
+        }
+      }
+    },
+    "/api/v1/location/city-by-place": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CityByPlaceRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "location-controller"
+        ],
+        "operationId": "getCityByPlaceId",
+        "x-google-backend": {
+          "address": "https://dev-location-service-541454969801.me-central1.run.app/api/v1/location/city-by-place"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CityByPlaceRequest": {
+      "properties": {
+        "placeId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "placeId"
+      ],
+      "type": "object"
+    },
+    "CityResponseDTO": {
+      "properties": {
+        "country": {
+          "$ref": "#/definitions/CountryResponseDTO"
+        },
+        "id": {
+          "type": "string"
+        },
+        "latitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "longitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "CountryDto": {
+      "properties": {
+        "countryFlag": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "isoCode2": {
+          "type": "string"
+        },
+        "isoCode3": {
+          "type": "string"
+        },
+        "latitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "longitude": {
+          "format": "double",
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phoneNumberFormat": {
+          "$ref": "#/definitions/PhoneNumberFormatDto"
+        }
+      },
+      "type": "object"
+    },
+    "CountryResponseDTO": {
+      "properties": {
+        "countryFlag": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "isoCode2": {
+          "type": "string"
+        },
+        "isoCode3": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "PagedResponseDtoCountryDto": {
+      "properties": {
+        "content": {
+          "items": {
+            "$ref": "#/definitions/CountryDto"
+          },
+          "type": "array"
+        },
+        "last": {
+          "type": "boolean"
+        },
+        "page": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "size": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "totalElements": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "totalPages": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "PhoneNumberFormatDto": {
+      "properties": {
+        "format": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "phoneCode": {
+          "type": "string"
+        },
+        "placeHolderExample": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessage": {
+      "properties": {
+        "data": {
+          "type": "object"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "object"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessageCountryDto": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/CountryDto"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "$ref": "#/definitions/CountryDto"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ResponseMessagePagedResponseDtoCountryDto": {
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/PagedResponseDtoCountryDto"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "$ref": "#/definitions/PagedResponseDtoCountryDto"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "in": "query",
+      "name": "key",
+      "type": "apiKey"
+    },
+    "x_api_key": {
+      "in": "header",
+      "name": "x-api-key",
+      "type": "apiKey"
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    },
+    {
+      "x_api_key": []
+    }
+  ],
+  "tags": [
+    {
+      "description": "APIs for managing countries",
+      "name": "Country Management"
+    },
+    {
+      "description": "APIs for currency operations",
+      "name": "Currency Management"
+    }
+  ],
+  "x-components": {}
+}

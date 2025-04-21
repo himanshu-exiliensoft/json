@@ -1,0 +1,194 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "OpenAPI definition",
+    "version": "v0"
+  },
+  "host": "dev-financial-service-541454969801.me-central1.run.app",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/v1/trips/{tripId}/budget": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tripId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Budget retrieved successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "403": {
+            "description": "Unauthorized access"
+          },
+          "404": {
+            "description": "Budget not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Budget APIs"
+        ],
+        "operationId": "getTripBudget",
+        "summary": "Get trip budget information",
+        "x-google-backend": {
+          "address": "https://dev-financial-service-541454969801.me-central1.run.app/api/v1/trips/{tripId}/budget"
+        }
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "tripId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "request_body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BudgetRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Budget created successfully",
+            "schema": {
+              "$ref": "#/definitions/ResponseMessage"
+            }
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "404": {
+            "description": "Trip or user not found"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          },
+          {
+            "x_api_key": []
+          }
+        ],
+        "tags": [
+          "Budget APIs"
+        ],
+        "operationId": "addBudget",
+        "summary": "Add budget to trip",
+        "x-google-backend": {
+          "address": "https://dev-financial-service-541454969801.me-central1.run.app/api/v1/trips/{tripId}/budget"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BudgetRequest": {
+      "properties": {
+        "currencyId": {
+          "type": "string"
+        },
+        "setBy": {
+          "type": "string"
+        },
+        "totalAmount": {
+          "type": "number"
+        },
+        "travelerGroupId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "currencyId",
+        "setBy",
+        "totalAmount",
+        "travelerGroupId"
+      ],
+      "type": "object"
+    },
+    "ResponseMessage": {
+      "properties": {
+        "data": {
+          "type": "object"
+        },
+        "errorCode": {
+          "type": "string"
+        },
+        "errors": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "statusCode": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "securityDefinitions": {
+    "api_key": {
+      "in": "query",
+      "name": "key",
+      "type": "apiKey"
+    },
+    "x_api_key": {
+      "in": "header",
+      "name": "x-api-key",
+      "type": "apiKey"
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    },
+    {
+      "x_api_key": []
+    }
+  ],
+  "tags": [
+    {
+      "description": "APIs for managing trip budgets",
+      "name": "Budget APIs"
+    }
+  ],
+  "x-components": {}
+}
